@@ -5,11 +5,11 @@ A standard library implementation for the Varuna programming language.
 ## Installing
 
 This repository is meant to be used as a `git submodule` for the Varuna compiler,
-in the directory src/lib/
+in the directory src/vastd.
 
 ```sh
 # In compiler root
-$ git submodule add git@github.com:varuna-lang/vastd.git src/lib
+$ git submodule add https://github.com/varuna-lang/vastd.git src/vastd
 ```
 
 ## License
