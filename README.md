@@ -1,4 +1,4 @@
-# Vastd
+# vastd
 
 A standard library implementation for the Varuna programming language.
 
