@@ -4,6 +4,10 @@
 
 module cstd;
 
+export def gets(str: cstring, max_size: i32) -> cstring;
+export def puts(str: cstring) -> char;
+export def perror(str: cstring);
+
 export def str_to_cstr(str: string) -> cstring;
 export def cstr_to_str(cstr: cstring) -> string;
 
@@ -13,15 +17,10 @@ export def cstralloc(size: i64) -> cstring;
 export def strfree(str: string);
 export def cstrfree(str: cstring);
 
-export def getchar() -> char;
-export def gets(str: string, maxSize: i32) -> bool;
-export def getsc(str: cstring, maxSize: i32) -> bool;
+export def getstr(str: string, max_size: i32) -> bool;
 
-export def putchar(ch: char) -> char;
-export def puts(str: string) -> char;
-export def putsc(str: cstring) -> char;
+export def putstr(str: string) -> char;
 
-export def perror(str: string);
-export def perrorc(str: cstring);
+export def perrorstr(str: string);
 
 export def eof() -> char;

@@ -8,24 +8,25 @@
 #include <cstdlib>
 #include <cstring>
 
-va_cstring VA_MANGLE(str_to_cstr)(va_string str)
+cstring str_to_cstr(string str)
 {
-    auto cstr = VA_MANGLE(cstralloc)(str.len + 1);
-    std::memcpy(cstr, str.ptr, str.len);
+    auto cstr = cstralloc(str.len + 1);
+    std::memcpy(cstr, str.ptr, static_cast<size_t>(str.len));
     cstr[str.len] = '\0';
     return cstr;
 }
-va_string VA_MANGLE(cstr_to_str)(va_cstring cstr)
+string cstr_to_str(cstring cstr)
 {
     const auto len = std::strlen(cstr);
-    auto str = VA_MANGLE(stralloc)(len);
+    auto str = stralloc(static_cast<va_i64>(len));
     std::strncpy(str.ptr, cstr, len);
     return str;
 }
 
-va_string VA_MANGLE(stralloc)(va_size size)
+string stralloc(va_i64 size)
 {
-    auto ptr = static_cast<va_bchar*>(std::malloc(size * sizeof(va_bchar)));
+    auto ptr = static_cast<va_bchar*>(
+        std::malloc(static_cast<size_t>(size) * sizeof(va_bchar)));
     if(!ptr)
     {
         std::fputs("Heap allocation failed: ", stderr);
@@ -34,9 +35,10 @@ va_string VA_MANGLE(stralloc)(va_size size)
     }
     return {size, ptr};
 }
-va_cstring VA_MANGLE(cstralloc)(va_size size)
+cstring cstralloc(va_i64 size)
 {
-    auto ptr = static_cast<va_bchar*>(std::malloc(size * sizeof(va_bchar)));
+    auto ptr = static_cast<va_bchar*>(
+        std::malloc(static_cast<size_t>(size) * sizeof(va_bchar)));
     if(!ptr)
     {
         std::fputs("Heap allocation failed: ", stderr);
@@ -46,58 +48,38 @@ va_cstring VA_MANGLE(cstralloc)(va_size size)
     return ptr;
 }
 
-void VA_MANGLE(strfree)(va_string str)
+void strfree(string str)
 {
-    free(str.ptr);
+    std::free(str.ptr);
 }
-void VA_MANGLE(cstrfree)(va_cstring str)
+void cstrfree(cstring str)
 {
-    free(str);
+    std::free(str);
 }
 
-va_char VA_MANGLE(getchar)()
+va_bool getstr(string str, va_i32 max_size)
 {
-    return static_cast<va_char>(std::getchar());
-}
-va_bool VA_MANGLE(gets)(va_string str, va_i32 maxSize)
-{
-    auto ret = std::fgets(str.ptr, maxSize, stdin) != nullptr;
-    str.len = std::strlen(str.ptr);
+    auto ret = std::fgets(str.ptr, max_size, stdin) != nullptr;
+    str.len = static_cast<va_i64>(std::strlen(str.ptr));
     return ret;
 }
-va_bool VA_MANGLE(getsc)(va_cstring str, va_i32 maxSize)
+
+va_char putstr(string str)
 {
-    return std::fgets(str, maxSize, stdin) != nullptr;
+    auto s = str_to_cstr(str);
+    auto ret = std::puts(s);
+    cstrfree(s);
+    return static_cast<va_char>(ret);
 }
 
-va_char VA_MANGLE(putchar)(va_char ch)
+void perrorstr(string str)
 {
-    return static_cast<va_char>(std::putchar(static_cast<int>(ch)));
-}
-va_char VA_MANGLE(puts)(va_string str)
-{
-    auto s = VA_MANGLE(str_to_cstr)(str);
-    auto ret = VA_MANGLE(putsc)(s);
-    VA_MANGLE(cstrfree)(s);
-    return ret;
-}
-va_char VA_MANGLE(putsc)(va_cstring str)
-{
-    return static_cast<va_char>(std::puts(str));
+    auto s = str_to_cstr(str);
+    std::perror(s);
+    cstrfree(s);
 }
 
-void VA_MANGLE(perror)(va_string str)
-{
-    auto s = VA_MANGLE(str_to_cstr)(str);
-    VA_MANGLE(perrorc)(s);
-    VA_MANGLE(cstrfree)(s);
-}
-void VA_MANGLE(perrorc)(va_cstring str)
-{
-    std::perror(str);
-}
-
-va_char VA_MANGLE(eof)()
+va_char eof()
 {
     return static_cast<va_char>(EOF);
 }

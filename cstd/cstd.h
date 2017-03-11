@@ -4,16 +4,14 @@
 
 #pragma once
 
+#include <cstdbool>
 #include <cstdint>
 #include <cstdlib>
-
-#define VA_MANGLE(name) __va_##name
 
 using va_i8 = int8_t;
 using va_i16 = int16_t;
 using va_i32 = int32_t;
 using va_i64 = int64_t;
-using va_size = std::size_t;
 
 using va_f32 = float;
 using va_f64 = double;
@@ -24,38 +22,26 @@ using va_byte = uint8_t;
 using va_char = char32_t;
 using va_bchar = char;
 
-struct va_string
+struct string
 {
-    va_size len;
+    va_i64 len;
     va_bchar* ptr;
 };
-using va_cstring = va_bchar*;
+using cstring = va_bchar*;
 
-// C compatibility functions
-extern "C" {
-va_string VA_MANGLE(cstr_to_str)(va_cstring);
-va_cstring VA_MANGLE(str_to_cstr)(va_string);
-}
+string cstr_to_str(cstring str);
+cstring str_to_cstr(string str);
 
-// C standard library functions
-extern "C" {
-va_string VA_MANGLE(stralloc)(va_size);
-va_cstring VA_MANGLE(cstralloc)(va_size);
+string stralloc(va_i64 size);
+cstring cstralloc(va_i64 size);
 
-void VA_MANGLE(strfree)(va_string);
-void VA_MANGLE(cstrfree)(va_cstring);
+void strfree(string str);
+void cstrfree(cstring str);
 
-// stdio.h
-va_char VA_MANGLE(getchar)();
-va_bool VA_MANGLE(gets)(va_string, va_i32);
-va_bool VA_MANGLE(getsc)(va_cstring, va_i32);
+va_bool getstr(string buf, va_i32 max_size);
 
-va_char VA_MANGLE(putchar)(va_char);
-va_char VA_MANGLE(puts)(va_string);
-va_char VA_MANGLE(putsc)(va_cstring);
+va_char putstr(string str);
 
-void VA_MANGLE(perror)(va_string);
-void VA_MANGLE(perrorc)(va_cstring);
+void perrorstr(string str);
 
-va_char VA_MANGLE(eof)();
-}
+va_char eof();
