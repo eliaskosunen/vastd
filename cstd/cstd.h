@@ -4,10 +4,9 @@
 
 #pragma once
 
+#include <cstdbool>
 #include <cstdint>
 #include <cstdlib>
-
-#define VA_MANGLE(name) __va_##name
 
 using va_i8 = int8_t;
 using va_i16 = int16_t;
@@ -31,31 +30,19 @@ struct va_string
 };
 using va_cstring = va_bchar*;
 
-// C compatibility functions
-extern "C" {
-va_string VA_MANGLE(cstr_to_str)(va_cstring);
-va_cstring VA_MANGLE(str_to_cstr)(va_string);
-}
+va_string cstr_to_str(va_cstring str);
+va_cstring str_to_cstr(va_string str);
 
-// C standard library functions
-extern "C" {
-va_string VA_MANGLE(stralloc)(va_size);
-va_cstring VA_MANGLE(cstralloc)(va_size);
+va_string stralloc(va_size size);
+va_cstring cstralloc(va_size size);
 
-void VA_MANGLE(strfree)(va_string);
-void VA_MANGLE(cstrfree)(va_cstring);
+void strfree(va_string str);
+void cstrfree(va_cstring str);
 
-// stdio.h
-va_char VA_MANGLE(getchar)();
-va_bool VA_MANGLE(gets)(va_string, va_i32);
-va_bool VA_MANGLE(getsc)(va_cstring, va_i32);
+va_bool getstr(va_string buf, va_i32 max_size);
 
-va_char VA_MANGLE(putchar)(va_char);
-va_char VA_MANGLE(puts)(va_string);
-va_char VA_MANGLE(putsc)(va_cstring);
+va_char putstr(va_string str);
 
-void VA_MANGLE(perror)(va_string);
-void VA_MANGLE(perrorc)(va_cstring);
+void perrorstr(va_string str);
 
-va_char VA_MANGLE(eof)();
-}
+va_char eof();
