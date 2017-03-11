@@ -12,7 +12,6 @@ using va_i8 = int8_t;
 using va_i16 = int16_t;
 using va_i32 = int32_t;
 using va_i64 = int64_t;
-using va_size = std::size_t;
 
 using va_f32 = float;
 using va_f64 = double;
@@ -25,7 +24,7 @@ using va_bchar = char;
 
 struct string
 {
-    va_size len;
+    va_i64 len;
     va_bchar* ptr;
 };
 using cstring = va_bchar*;
@@ -33,8 +32,8 @@ using cstring = va_bchar*;
 string cstr_to_str(cstring str);
 cstring str_to_cstr(string str);
 
-string stralloc(va_size size);
-cstring cstralloc(va_size size);
+string stralloc(va_i64 size);
+cstring cstralloc(va_i64 size);
 
 void strfree(string str);
 void cstrfree(cstring str);

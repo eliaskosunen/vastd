@@ -23,7 +23,7 @@ string cstr_to_str(cstring cstr)
     return str;
 }
 
-string stralloc(va_size size)
+string stralloc(va_i64 size)
 {
     auto ptr = static_cast<va_bchar*>(std::malloc(size * sizeof(va_bchar)));
     if(!ptr)
@@ -34,7 +34,7 @@ string stralloc(va_size size)
     }
     return {size, ptr};
 }
-cstring cstralloc(va_size size)
+cstring cstralloc(va_i64 size)
 {
     auto ptr = static_cast<va_bchar*>(std::malloc(size * sizeof(va_bchar)));
     if(!ptr)
