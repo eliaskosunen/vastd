@@ -23,26 +23,26 @@ using va_byte = uint8_t;
 using va_char = char32_t;
 using va_bchar = char;
 
-struct va_string
+struct string
 {
     va_size len;
     va_bchar* ptr;
 };
-using va_cstring = va_bchar*;
+using cstring = va_bchar*;
 
-va_string cstr_to_str(va_cstring str);
-va_cstring str_to_cstr(va_string str);
+string cstr_to_str(cstring str);
+cstring str_to_cstr(string str);
 
-va_string stralloc(va_size size);
-va_cstring cstralloc(va_size size);
+string stralloc(va_size size);
+cstring cstralloc(va_size size);
 
-void strfree(va_string str);
-void cstrfree(va_cstring str);
+void strfree(string str);
+void cstrfree(cstring str);
 
-va_bool getstr(va_string buf, va_i32 max_size);
+va_bool getstr(string buf, va_i32 max_size);
 
-va_char putstr(va_string str);
+va_char putstr(string str);
 
-void perrorstr(va_string str);
+void perrorstr(string str);
 
 va_char eof();
