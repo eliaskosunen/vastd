@@ -11,21 +11,22 @@
 cstring str_to_cstr(string str)
 {
     auto cstr = cstralloc(str.len + 1);
-    std::memcpy(cstr, str.ptr, str.len);
+    std::memcpy(cstr, str.ptr, static_cast<size_t>(str.len));
     cstr[str.len] = '\0';
     return cstr;
 }
 string cstr_to_str(cstring cstr)
 {
     const auto len = std::strlen(cstr);
-    auto str = stralloc(len);
+    auto str = stralloc(static_cast<va_i64>(len));
     std::strncpy(str.ptr, cstr, len);
     return str;
 }
 
 string stralloc(va_i64 size)
 {
-    auto ptr = static_cast<va_bchar*>(std::malloc(size * sizeof(va_bchar)));
+    auto ptr = static_cast<va_bchar*>(
+        std::malloc(static_cast<size_t>(size) * sizeof(va_bchar)));
     if(!ptr)
     {
         std::fputs("Heap allocation failed: ", stderr);
@@ -36,7 +37,8 @@ string stralloc(va_i64 size)
 }
 cstring cstralloc(va_i64 size)
 {
-    auto ptr = static_cast<va_bchar*>(std::malloc(size * sizeof(va_bchar)));
+    auto ptr = static_cast<va_bchar*>(
+        std::malloc(static_cast<size_t>(size) * sizeof(va_bchar)));
     if(!ptr)
     {
         std::fputs("Heap allocation failed: ", stderr);
@@ -58,7 +60,7 @@ void cstrfree(cstring str)
 va_bool getstr(string str, va_i32 max_size)
 {
     auto ret = std::fgets(str.ptr, max_size, stdin) != nullptr;
-    str.len = std::strlen(str.ptr);
+    str.len = static_cast<va_i64>(std::strlen(str.ptr));
     return ret;
 }
 
