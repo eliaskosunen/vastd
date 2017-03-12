@@ -4,9 +4,9 @@
 
 module cstd;
 
-export def gets(str: cstring, max_size: i32) -> cstring;
-export def puts(str: cstring) -> char;
-export def perror(str: cstring);
+export nomangle def gets(str: cstring, max_size: i32) -> cstring;
+export nomangle def puts(str: cstring) -> char;
+export nomangle def perror(str: cstring);
 
 export def str_to_cstr(str: string) -> cstring;
 export def cstr_to_str(cstr: cstring) -> string;
