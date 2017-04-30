@@ -57,7 +57,7 @@ void cstrfree(cstring str)
     std::free(str);
 }
 
-cstring cstrcpy(cstring dest, cstring2 src)
+cstring cstrcpy(cstring dest, cstring src)
 {
     return std::strcpy(dest, src);
 }
@@ -65,12 +65,12 @@ va_i64 cstrlen(cstring str)
 {
     return static_cast<va_i64>(std::strlen(str));
 }
-va_i32 cstrcmp(cstring lhs, cstring2 rhs)
+va_i32 cstrcmp(cstring lhs, cstring rhs)
 {
     return std::strcmp(lhs, rhs);
 }
 
-string strcpy(string dest, string2 src)
+string strcpy(string dest, string src)
 {
     return {dest.len, static_cast<va_bchar*>(std::memcpy(
                           dest.ptr, src.ptr, static_cast<size_t>(dest.len)))};
@@ -79,7 +79,7 @@ va_i64 strlen(string str)
 {
     return str.len;
 }
-va_i32 strcmp(string lhs, string2 rhs)
+va_i32 strcmp(string lhs, string rhs)
 {
     return std::memcmp(lhs.ptr, rhs.ptr, static_cast<size_t>(lhs.len));
 }

@@ -27,17 +27,15 @@ struct string
     va_i64 len;
     va_bchar* ptr;
 };
-using string2 = string;
 using cstring = va_bchar*;
-using cstring2 = cstring;
 
-cstring cstrcpy(cstring dest, cstring2 src);
+cstring cstrcpy(cstring dest, cstring src);
 va_i64 cstrlen(cstring str);
-va_i32 cstrcmp(cstring lhs, cstring2 rhs);
+va_i32 cstrcmp(cstring lhs, cstring rhs);
 
-string strcpy(string dest, string2 src);
+string strcpy(string dest, string src);
 va_i64 strlen(string str);
-va_i32 strcmp(string lsh, string2 rhs);
+va_i32 strcmp(string lsh, string rhs);
 
 string cstr_to_str(cstring str);
 cstring str_to_cstr(string str);
