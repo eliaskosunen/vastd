@@ -72,7 +72,8 @@ va_i32 cstrcmp(cstring lhs, cstring rhs)
 
 string strcpy(string dest, string src)
 {
-    return {dest.len, static_cast<va_bchar*>(std::memcpy(dest.ptr, src.ptr, dest.len))};
+    return {dest.len, static_cast<va_bchar*>(std::memcpy(
+                          dest.ptr, src.ptr, static_cast<size_t>(dest.len)))};
 }
 va_i64 strlen(string str)
 {
@@ -80,7 +81,7 @@ va_i64 strlen(string str)
 }
 va_i32 strcmp(string lhs, string rhs)
 {
-    return std::memcmp(lhs.ptr, rhs.ptr, lhs.len);
+    return std::memcmp(lhs.ptr, rhs.ptr, static_cast<size_t>(lhs.len));
 }
 
 va_bool getstr(string str, va_i32 max_size)
