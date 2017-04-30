@@ -9,11 +9,11 @@ export def puts(str: cstring) -> char;
 export def perror(str: cstring);
 
 export def cstrcpy(dest: cstring, src: cstring) -> cstring;
-export def cstrlen(str: cstring) -> cstring;
+export def cstrlen(str: cstring) -> i64;
 export def cstrcmp(lhs: cstring, rhs: cstring) -> i32;
 
 export def strcpy(dest: string, src: string) -> string;
-export def strlen(str: string) -> string;
+export def strlen(str: string) -> i64;
 export def strcmp(lhs: string, rhs: string) -> i32;
 
 export def str_to_cstr(str: string) -> cstring;
