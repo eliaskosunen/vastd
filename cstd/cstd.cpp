@@ -86,7 +86,7 @@ va_i32 strcmp(string lhs, string rhs)
 
 va_bool getstr(string str, va_i32 max_size)
 {
-    auto ret = std::fgets(str.ptr, max_size, stdin) != nullptr;
+    auto ret = std::fgets(str.ptr, max_size + 1, stdin) != nullptr;
     str.len = static_cast<va_i64>(std::strlen(str.ptr));
     return ret;
 }
