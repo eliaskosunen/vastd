@@ -7,7 +7,7 @@ else()
     set(EXEC_SUFFIX)
 endif()
 
-add_library(vastd SHARED ${sources_vastd} ${headers_vastd})
+add_library(vastd ${sources_vastd} ${headers_vastd})
 add_dependencies(vastd varuna vart)
 add_custom_command(
     TARGET vastd POST_BUILD
