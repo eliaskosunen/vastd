@@ -8,10 +8,14 @@ else()
 endif()
 
 add_library(vastd ${sources_vastd} ${headers_vastd})
-add_dependencies(vastd varuna vart)
+add_dependencies(vastd varuna)
+install(TARGETS vastd DESTINATION lib)
+
 add_custom_command(
-    TARGET vastd POST_BUILD
+    OUTPUT cstd.vamod
     COMMAND ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/varuna${EXEC_SUFFIX} ${CMAKE_SOURCE_DIR}/projects/vastd/cstd/cstd.va -emit=llvm-ir -logging=warning
     COMMAND ${CMAKE_COMMAND} -E copy cstd.vamod ${CMAKE_SOURCE_DIR}
+    DEPENDS varuna vastd
+    COMMENT Building standard library module...
 )
-install(TARGETS vastd DESTINATION lib)
+install(FILES cstd.vamod DESTINATION include/varuna)
