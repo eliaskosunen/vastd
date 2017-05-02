@@ -12,7 +12,7 @@ add_dependencies(vastd varuna)
 install(TARGETS vastd DESTINATION lib)
 
 add_custom_command(
-    OUTPUT cstd.vamod
+    OUTPUT ${CMAKE_SOURCE_DIR}/projects/vastd/cstd/cstd.vamod
     COMMAND ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/varuna${EXEC_SUFFIX} ${CMAKE_SOURCE_DIR}/projects/vastd/cstd/cstd.va -emit=llvm-ir -logging=warning
     DEPENDS varuna vastd
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/projects/vastd/cstd
