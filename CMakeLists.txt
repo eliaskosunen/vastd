@@ -16,7 +16,7 @@ add_custom_command(
     COMMAND ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/varuna${EXEC_SUFFIX} ${CMAKE_SOURCE_DIR}/projects/vastd/cstd/cstd.va -emit=llvm-ir -logging=warning
     DEPENDS varuna vastd
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/projects/vastd/cstd
-    COMMENT Building standard library module...
+    COMMENT "Building standard library module..."
 )
 add_custom_target(cstd-vamod ALL DEPENDS ${CMAKE_SOURCE_DIR}/projects/vastd/cstd/cstd.vamod)
 install(FILES ${CMAKE_SOURCE_DIR}/projects/vastd/cstd/cstd.vamod DESTINATION include/varuna)
